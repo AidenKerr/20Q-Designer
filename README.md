@@ -1,11 +1,10 @@
-# My Personal Project
+# Raycast Renderer & Level Editor
 
-## A subtitle
+## Proposal
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+This application will be a level editor with ray cast rendering.
+Users can use this application to build worlds for their own games.
+They will be able to add straight walls, as well as different types of curved walls.
+*Functionality may be added later for different colours, as well as doors that can open with a key.*
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+This project is of interest to me because I find ray casting to be fascinating, and I want to write it on my own.  
