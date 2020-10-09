@@ -13,6 +13,6 @@ like a binary search tree.
 ### User Stories
 
 * As a user, I want to be able to create a guessable item and have it automatically added to the root question node.
-* As a user, I want to be able to view all the items in a node.
+* As a user, I want to be able to view all the items in a node and sort them into their yes/no answer lists.
 * As a user, I want to be able to delete an item from my question node.
 * As a user, I want to be able to be able to navigate through the question tree.
