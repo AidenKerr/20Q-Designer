@@ -6,6 +6,8 @@ import model.Node;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+// User interface code
+// Inspired by code in the TellerApp example provided
 public class QuestionsApp {
 
     Node root;
@@ -27,6 +29,8 @@ public class QuestionsApp {
         String command;
         String param;
 
+        welcomeMessage();
+
         while (running) {
             showMenu();
             String input = scan.nextLine();
@@ -43,6 +47,12 @@ public class QuestionsApp {
         }
     }
 
+    private void welcomeMessage() {
+        System.out.println("\nWelcome to the 20 Questions Builder!");
+        System.out.println("With this program, you can create your own game of 20 Questions");
+        System.out.println("To start, set your yes/no question, create some items and sort them into yes and no");
+    }
+
     private void runCommand(String input, String param) {
         switch (input) {
             case "help":
@@ -52,11 +62,8 @@ public class QuestionsApp {
                 Item newItem = new Item(param);
                 currentNode.addUnsortedItem(newItem);
                 break;
-            case "yes": // move item into yesList
-                currentNode.moveItemYes();
-                break;
-            case "no": // move item into noList
-                currentNode.moveItemNo();
+            case "sort":
+                sort();
                 break;
             case "yesNode": // change current node to yesNode
                 changeNode(true);
@@ -69,7 +76,26 @@ public class QuestionsApp {
                 break;
             default:
                 System.out.println("Unknown Command");
-                break;
+        }
+    }
+
+    private void sort() {
+        while (currentNode.getUnsortedItems().size() > 0) {
+
+            Item itemToSort = currentNode.getUnsortedItems().get(0);
+
+            System.out.println("Question: " + currentNode.getQuestion());
+            System.out.println("Item: " + itemToSort.getName());
+            System.out.print("Answer: ");
+
+            String answer = scan.next();
+            if (answer.equals("yes") || answer.equals("y")) {
+                currentNode.moveItemYes();
+            } else if (answer.equals("no") || answer.equals("n")) {
+                currentNode.moveItemNo();
+            } else {
+                System.out.println("Unknown Command");
+            }
         }
     }
 
@@ -84,11 +110,6 @@ public class QuestionsApp {
     private void showMenu() {
         System.out.println("Type help for command list");
         System.out.println("Current Question: " + currentNode.getQuestion());
-
-        System.out.println("Items: ");
-        for (Item item : currentNode.getUnsortedItems()) {
-            System.out.println(item.getName());
-        }
 
         System.out.println("\nEnter Your Command:");
     }

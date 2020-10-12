@@ -223,4 +223,16 @@ public class NodeTest {
         assertEquals("John Lennon", yesItem2.getName());
         assertEquals("toothbrush", yesItem3.getName());
     }
+
+    @Test
+    public void addUnsortedItemTest() {
+        List<Item> list = node.getUnsortedItems();
+        assertEquals(3, list.size());
+
+        Item newItem = new Item("test");
+        node.addUnsortedItem(newItem);
+
+        assertEquals(4, list.size());
+        assertEquals("test", list.get(3).getName());
+    }
 }

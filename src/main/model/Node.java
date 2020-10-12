@@ -11,6 +11,9 @@ import java.util.List;
     Items can be sorted into yesList or noList.
     When all items are sorted, new question nodes can be created for the yes/no nodes, where their respective lists are
     now in the unsorted list.
+
+    Some inspiration for the structure of binary trees was taken from
+    https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
  */
 public class Node {
 
@@ -44,37 +47,35 @@ public class Node {
         this.question = question;
     }
 
-    // REQUIRES: item list is not empty TODO is this requires necessary
+
     // MODIFIES: this
     // EFFECTS: if noNode exists, add first item in unsorted list directly to noNode.
-    // Otherwise add to no list and attempt to make noNode.
+    // Otherwise, if item exists, add to no list and attempt to make noNode.
     public void moveItemNo() {
 
         Item item = unsortedItems.poll();
 
-        if (noNode != null) {
+        if (noNode != null && item != null) {
             noNode.addUnsortedItem(item);
             noItems = new LinkedList<>();
-        } else {
+        } else if (item != null) {
             noItems.add(item);
             createNextNodes();
         }
     }
 
-    // REQUIRES: item list is not empty TODO is this requires necessary
     // MODIFIES: this
     // EFFECTS: if yesNode exists, add first item in unsorted list directly to yesNode.
-    // Otherwise add to yes list and attempt to make yesNode.
+    // Otherwise, if item exists, add to yes list and attempt to make yesNode.
     public void moveItemYes() {
         Item item = unsortedItems.poll();
 
-        if (yesNode != null) {
+        if (yesNode != null && item != null) {
             yesNode.addUnsortedItem(item);
-        } else {
+        } else if (item != null) {
             yesItems.add(item);
             createNextNodes();
         }
-
     }
 
     /*
@@ -102,12 +103,12 @@ public class Node {
 
     // EFFECTS: if noNode exists, return noNode. Else return null.
     public Node getNoNode() {
-        return noNode; // stub
+        return noNode;
     }
 
     // EFFECTS: if yesNode exists, return yesNode. Else return null.
     public Node getYesNode() {
-        return yesNode; // stub
+        return yesNode;
     }
 
     public Node getParentNode() {
@@ -127,6 +128,6 @@ public class Node {
     }
 
     public void addUnsortedItem(Item item) {
-        unsortedItems.add(item); // TODO write tests
+        unsortedItems.add(item);
     }
 }
