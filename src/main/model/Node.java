@@ -44,45 +44,60 @@ public class Node {
         this.question = question;
     }
 
-    // REQUIRES: item list is not empty
+    // REQUIRES: item list is not empty TODO is this requires necessary
     // MODIFIES: this
-    // EFFECTS: move first item in unsorted list into the no list
+    // EFFECTS: if noNode exists, add first item in unsorted list directly to noNode.
+    // Otherwise add to no list and attempt to make noNode.
     public void moveItemNo() {
+
         Item item = unsortedItems.poll();
-        noItems.add(item);
+
+        if (noNode != null) {
+            noNode.addUnsortedItem(item);
+            noItems = new LinkedList<>();
+        } else {
+            noItems.add(item);
+            createNextNodes();
+        }
     }
 
-    // REQUIRES: item list is not empty
+    // REQUIRES: item list is not empty TODO is this requires necessary
     // MODIFIES: this
-    // EFFECTS: move first item in unsorted list into the yes list
+    // EFFECTS: if yesNode exists, add first item in unsorted list directly to yesNode.
+    // Otherwise add to yes list and attempt to make yesNode.
     public void moveItemYes() {
         Item item = unsortedItems.poll();
-        yesItems.add(item);
+
+        if (yesNode != null) {
+            yesNode.addUnsortedItem(item);
+        } else {
+            yesItems.add(item);
+            createNextNodes();
+        }
+
     }
 
     /*
         MODIFIES: this
-        EFFECTS: if unsorted list is empty, and yesList/noList both have 1 or more item, create new Nodes for
-        yesNode and noNode with each initialized with yesItems or noItems respectively, with this object as parent
-        and return true. Otherwise return false.
+        EFFECTS: if yesList/noList both have 1 or more item, create new Nodes for yesNode and noNode with each
+        initialized with yesItems or noItems respectively, with this object as parent, and empty old lists.
      */
-    public boolean createNextNodes() {
+    private void createNextNodes() {
 
-        boolean unsortedListEmpty = unsortedItems.size() == 0;
         boolean noListHasItems = noItems.size() >= 1;
         boolean yesListHasItems = yesItems.size() >= 1;
 
-        if (unsortedListEmpty & noListHasItems & yesListHasItems) {
+        if (noListHasItems & yesListHasItems) {
             Node yesNode = new Node(yesItems, this);
             Node noNode = new Node(noItems, this);
 
             this.yesNode = yesNode;
             this.noNode = noNode;
 
-            return true;
+            // reset item lists
+            yesItems = new LinkedList<>();
+            noItems = new LinkedList<>();
         }
-
-        return false;
     }
 
     // EFFECTS: if noNode exists, return noNode. Else return null.
@@ -109,5 +124,9 @@ public class Node {
 
     public LinkedList<Item> getUnsortedItems() {
         return unsortedItems;
+    }
+
+    public void addUnsortedItem(Item item) {
+        unsortedItems.add(item); // TODO write tests
     }
 }

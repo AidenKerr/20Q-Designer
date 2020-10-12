@@ -22,8 +22,6 @@ public class NodeTest {
         items.add(item2);
         items.add(item3);
 
-        System.out.println("test");
-
         node = new Node(items, null);
     }
 
@@ -58,6 +56,10 @@ public class NodeTest {
 
         Item item = noList.get(0);
         assertEquals("Han Solo", item.getName());
+
+        // nodes shouldn't be created yet
+        assertNull(node.getYesNode());
+        assertNull(node.getNoNode());
     }
 
     @Test
@@ -82,6 +84,10 @@ public class NodeTest {
         assertEquals("Han Solo", item1.getName());
         assertEquals("Ada Lovelace", item2.getName());
         assertEquals("John Lennon", item3.getName());
+
+        // nodes shouldn't be created yet
+        assertNull(node.getYesNode());
+        assertNull(node.getNoNode());
     }
 
     @Test
@@ -97,6 +103,10 @@ public class NodeTest {
 
         Item item = yesList.get(0);
         assertEquals("Han Solo", item.getName());
+
+        // nodes shouldn't be created yet
+        assertNull(node.getYesNode());
+        assertNull(node.getNoNode());
     }
 
     @Test
@@ -121,55 +131,69 @@ public class NodeTest {
         assertEquals("Han Solo", item1.getName());
         assertEquals("Ada Lovelace", item2.getName());
         assertEquals("John Lennon", item3.getName());
+
+        // nodes shouldn't be created yet
+        assertNull(node.getYesNode());
+        assertNull(node.getNoNode());
     }
 
     @Test
-    public void createNextNodesFailUnsortedTest() {
-        assertFalse(node.createNextNodes());
-
-        node.moveItemYes();
-
-        assertFalse(node.createNextNodes());
-
-        node.moveItemYes();
-
-        assertFalse(node.createNextNodes());
-
-        node.moveItemNo();
-    }
-
-    @Test
-    public void createNextNodesNotEnoughYesTest() {
-        LinkedList<Item> items = new LinkedList<>();
-        items.add(new Item("Charles Babbage"));
-
-        Node testNode = new Node(items, null);
-        testNode.moveItemNo();
-
-        assertFalse(testNode.createNextNodes());
-    }
-
-    @Test
-    public void createNextNodesNotEnoughNoTest() {
-        LinkedList<Item> items = new LinkedList<>();
-        items.add(new Item("Charles Babbage"));
-
-        Node testNode = new Node(items, null);
-        testNode.moveItemYes();
-
-        assertFalse(testNode.createNextNodes());
-    }
-
-    @Test
-    public void createNextNodesPassTest() {
-        node.moveItemYes();
-        node.moveItemNo();
-        node.moveItemYes();
-
+    public void moveItemsMakeNextNodes() {
         // set question is used to check parent nodes later
         node.setQuestion("createNextNodesPassTest question");
 
-        assertTrue(node.createNextNodes());
+        node.moveItemNo();
+        node.moveItemYes();
+
+        assertNotNull(node.getNoNode());
+        assertNotNull(node.getNoNode());
+
+        Node yesNode = node.getYesNode();
+        Node noNode = node.getNoNode();
+
+        Node yesParent = yesNode.getParentNode();
+        Node noParent = noNode.getParentNode();
+
+        // check children's parent is original node
+        assertEquals("createNextNodesPassTest question", yesParent.getQuestion());
+        assertEquals("createNextNodesPassTest question", noParent.getQuestion());
+
+        List<Item> yesList = yesNode.getUnsortedItems();
+        List<Item> noList = noNode.getUnsortedItems();
+
+        assertEquals(1, noList.size());
+        assertEquals(1, yesList.size());
+
+        Item yesItem = yesList.get(0);
+        Item noItem = noList.get(0);
+
+        assertEquals("Han Solo", noItem.getName());
+        assertEquals("Ada Lovelace", yesItem.getName());
+    }
+
+    @Test
+    public void moveItemsNextNodesExist() {
+        // set question is used to check parent nodes later
+        node.setQuestion("createNextNodesPassTest question");
+
+        node.moveItemNo();
+        node.moveItemYes();
+        node.moveItemYes();
+
+        assertNotNull(node.getNoNode());
+        assertNotNull(node.getNoNode());
+
+        // Now that child nodes have been created, create new items, sort them, and ensure old ones still exist
+
+        Item newItem1 = new Item("toothbrush");
+        Item newItem2 = new Item("hairbrush");
+        node.addUnsortedItem(newItem1);
+        node.addUnsortedItem(newItem2);
+
+        node.moveItemYes();
+        node.moveItemNo();
+
+        // check nodes
 
         Node yesNode = node.getYesNode();
         Node noNode = node.getNoNode();
@@ -184,15 +208,19 @@ public class NodeTest {
         List<Item> noList = noNode.getUnsortedItems();
         List<Item> yesList = yesNode.getUnsortedItems();
 
-        assertEquals(1, noList.size());
-        assertEquals(2, yesList.size());
+        assertEquals(2, noList.size());
+        assertEquals(3, yesList.size());
 
-        Item noItem = noList.get(0);
+        Item noItem1 = noList.get(0);
+        Item noItem2 = noList.get(1);
         Item yesItem1 = yesList.get(0);
         Item yesItem2 = yesList.get(1);
+        Item yesItem3 = yesList.get(2);
 
-        assertEquals("Ada Lovelace", noItem.getName());
-        assertEquals("Han Solo", yesItem1.getName());
+        assertEquals("Han Solo", noItem1.getName());
+        assertEquals("hairbrush", noItem2.getName());
+        assertEquals("Ada Lovelace", yesItem1.getName());
         assertEquals("John Lennon", yesItem2.getName());
+        assertEquals("toothbrush", yesItem3.getName());
     }
 }
