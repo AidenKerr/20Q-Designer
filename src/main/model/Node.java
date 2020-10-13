@@ -105,12 +105,10 @@ public class Node {
         }
     }
 
-    // EFFECTS: if noNode exists, return noNode. Else return null.
     public Node getNoNode() {
         return noNode;
     }
 
-    // EFFECTS: if yesNode exists, return yesNode. Else return null.
     public Node getYesNode() {
         return yesNode;
     }

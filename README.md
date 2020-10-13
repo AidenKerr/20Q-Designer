@@ -12,7 +12,7 @@ like a binary search tree.
 
 ### User Stories
 
-* As a user, I want to be able to create a guessable item and have it automatically added to the root question node.
+* As a user, I want to be able to create a guessable item and have it automatically added to the current question node.
 * As a user, I want to be able to view an item in a node and sort it by yes/no, automatically creating child nodes.
 * As a user, I want to be able to set a question for my current node.
 * As a user, I want to be able to be able to navigate through the question tree.
