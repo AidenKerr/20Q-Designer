@@ -225,6 +225,28 @@ public class NodeTest {
     }
 
     @Test
+    public void moveItemNoNullTest() {
+        // new node with zero items
+        LinkedList<Item> items = new LinkedList<>();
+        Node newNode = new Node(items, null);
+        newNode.moveItemNo();
+
+        List<Item> noItems = newNode.getNoItems();
+        assertEquals(0, noItems.size());
+    }
+
+    @Test
+    public void moveItemYesNullTest() {
+        // new node with zero items
+        LinkedList<Item> items = new LinkedList<>();
+        Node newNode = new Node(items, null);
+        newNode.moveItemYes();
+
+        List<Item> yesItems = newNode.getYesItems();
+        assertEquals(0, yesItems.size());
+    }
+
+    @Test
     public void addUnsortedItemTest() {
         List<Item> list = node.getUnsortedItems();
         assertEquals(3, list.size());

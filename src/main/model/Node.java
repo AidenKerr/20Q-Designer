@@ -55,12 +55,14 @@ public class Node {
 
         Item item = unsortedItems.poll();
 
-        if (noNode != null && item != null) {
-            noNode.addUnsortedItem(item);
-            noItems = new LinkedList<>();
-        } else if (item != null) {
-            noItems.add(item);
-            createNextNodes();
+        if (item != null) {
+            if (noNode != null) {
+                noNode.addUnsortedItem(item);
+                noItems = new LinkedList<>();
+            } else {
+                noItems.add(item);
+                createNextNodes();
+            }
         }
     }
 
@@ -70,11 +72,13 @@ public class Node {
     public void moveItemYes() {
         Item item = unsortedItems.poll();
 
-        if (yesNode != null && item != null) {
-            yesNode.addUnsortedItem(item);
-        } else if (item != null) {
-            yesItems.add(item);
-            createNextNodes();
+        if (item != null) {
+            if (yesNode != null) {
+                yesNode.addUnsortedItem(item);
+            } else {
+                yesItems.add(item);
+                createNextNodes();
+            }
         }
     }
 
