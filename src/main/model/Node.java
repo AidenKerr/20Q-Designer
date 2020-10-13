@@ -7,10 +7,14 @@ import java.util.List;
 /*
     A question node in the binary tree
 
-    unsortedItems is a list of items for which the question has not been answered.
-    Items can be sorted into yesList or noList.
-    When all items are sorted, new question nodes can be created for the yes/no nodes, where their respective lists are
-    now in the unsorted list.
+    This class represents the question and all it's associated items.
+
+    ITEMS:
+    * unsortedItems is a list of items for which the question has not yet been answered.
+    * yesList is a list of items that have been sorted yes
+    * noList is a list of items that have been sorted no
+
+    When yesList and noList each have at least one item, the next nodes are automatically generated.
 
     Some inspiration for the structure of binary trees was taken from
     https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
