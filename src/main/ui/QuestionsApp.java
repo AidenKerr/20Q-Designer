@@ -4,6 +4,7 @@ import model.Item;
 import model.Node;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 // User interface code
@@ -63,23 +64,83 @@ public class QuestionsApp {
                 currentNode.addUnsortedItem(newItem);
                 break;
             case "sort":
-                sort();
+                sortItems();
                 break;
-            case "yesNode": // change current node to yesNode
-                changeNode(true);
-                break;
-            case "noNode": // change current node to noNode
-                changeNode(false);
+            case "move":
+                move();
                 break;
             case "setQuestion":
                 currentNode.setQuestion(param);
+                break;
+            case "describe":
+                setDescriptions();
                 break;
             default:
                 System.out.println("Unknown Command");
         }
     }
 
-    private void sort() {
+    private void move() {
+        System.out.println("Which node would you like to move to? (yes, no, parent, root)");
+
+        String answer = scan.nextLine();
+
+        switch (answer) {
+            case "root":
+                currentNode = root;
+                break;
+            case "parent":
+                moveToParentNode();
+                break;
+            case "yes":
+                moveToChildNode(true);
+                break;
+            case "no":
+                moveToChildNode(false);
+                break;
+            default:
+                System.out.println("Unknown Command");
+        }
+
+    }
+
+    // move to parent node as long as
+    private void moveToParentNode() {
+        Node parentNode = currentNode.getParentNode();
+        if (parentNode != null) {
+            currentNode = parentNode;
+        }
+    }
+
+    // change current node to yesNode or noNode
+    private void moveToChildNode(boolean isYesNode) {
+        Node node = isYesNode ? currentNode.getYesNode() : currentNode.getNoNode();
+        if (node != null) {
+            currentNode = node;
+        }
+    }
+
+    private void setDescriptions() {
+        System.out.println("\nSetting Descriptions (leave empty to skip)");
+
+        List<Item> list = currentNode.getUnsortedItems();
+
+        for (Item item : list) {
+            System.out.println("Item: " + item.getName());
+
+            String desc = item.getDescription();
+
+            if (! desc.equals(Item.NO_DESCRIPTION)) {
+                System.out.println("Current description: " + desc);
+            }
+
+            System.out.println("New Description: ");
+            String newDesc = scan.nextLine();
+            item.setDescription(newDesc);
+        }
+    }
+
+    private void sortItems() {
         while (currentNode.getUnsortedItems().size() > 0) {
 
             Item itemToSort = currentNode.getUnsortedItems().get(0);
@@ -88,7 +149,7 @@ public class QuestionsApp {
             System.out.println("Item: " + itemToSort.getName());
             System.out.print("Answer: ");
 
-            String answer = scan.next();
+            String answer = scan.nextLine();
             if (answer.equals("yes") || answer.equals("y")) {
                 currentNode.moveItemYes();
             } else if (answer.equals("no") || answer.equals("n")) {
@@ -96,14 +157,6 @@ public class QuestionsApp {
             } else {
                 System.out.println("Unknown Command");
             }
-        }
-    }
-
-    // change current node to yesNode or noNode
-    private void changeNode(boolean isYesNode) {
-        Node node = isYesNode ? currentNode.getYesNode() : currentNode.getYesNode();
-        if (node != null) {
-            currentNode = node;
         }
     }
 
@@ -117,10 +170,11 @@ public class QuestionsApp {
     private void showCommands() {
         System.out.println("Commands:");
         System.out.println("q - quit");
+        System.out.println("help - command list");
         System.out.println("setQuestion [question] - change current question");
-        System.out.println("yes - move item to yes list");
-        System.out.println("no - move item to yes list");
-        System.out.println("yesNode - move to yes node");
-        System.out.println("noNode - move to yes node\n");
+        System.out.println("newItem [item name] - create new guessable item");
+        System.out.println("describe - set descriptions for unsorted items");
+        System.out.println("sort - move items by yes or no");
+        System.out.println("move - navigate through the question tree\n");
     }
 }
