@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +13,8 @@ import java.util.List;
     * yesList is a list of items that have been sorted yes
     * noList is a list of items that have been sorted no
 
-    When yesList and noList each have at least one item, the next nodes are automatically generated.
+    yesList and noList are temporary lists for when the child nodes are not yet created.
+    When they each have at least one item, the next nodes are automatically generated and the items are move over.
 
     Some inspiration for the structure of binary trees was taken from
     https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
@@ -38,17 +38,6 @@ public class Node {
         yesItems = new LinkedList<>();
         noItems = new LinkedList<>();
         parentNode = parent;
-    }
-
-    // EFFECTS: returns the question
-    public String getQuestion() {
-        return question;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: modifies the question
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
 
@@ -107,6 +96,14 @@ public class Node {
             yesItems = new LinkedList<>();
             noItems = new LinkedList<>();
         }
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public Node getNoNode() {
