@@ -1,0 +1,87 @@
+{
+    "question": "Is your item alive?",
+    "unsortedItems": [
+        {
+            "name": "virus",
+            "description": "idk if this is alive or not so i wont sort it"
+        }
+    ],
+    "yesItems": [],
+    "noItems": [],
+    "yesNode": {
+        "question": "Is your item a human?",
+        "unsortedItems": [
+            {
+                "name": "bear",
+                "description": "No Description Provided"
+            },
+            {
+                "name": "duck",
+                "description": "quack"
+            }
+        ],
+        "yesItems": [
+            {
+                "name": "Aiden Kerr",
+                "description": "it's me!"
+            },
+            {
+                "name": "Jesus",
+                "description": "No Description Provided"
+            }
+        ],
+        "noItems": [],
+        "YesNode": null,
+        "noNode": null
+    },
+    "noNode": {
+        "question": "does your item use electricity?",
+        "unsortedItems": [],
+        "yesItems": [],
+        "noItems": [],
+        "yesNode": {
+            "question": "does your item use the internet?",
+            "unsortedItems": [],
+            "yesItems": [
+                {
+                    "name": "computer",
+                    "description": "use it to write CPSC 210 projects!"
+                }
+            ],
+            "noItems": [
+                {
+                    "name": "hair dryer",
+                    "description": "my hair is kinda wet"
+                },
+                {
+                    "name": "fan",
+                    "description": "to cool my room and also for white noise"
+                }
+            ],
+            "yesNode": null,
+            "noNode": null
+        },
+        "noNode": {
+            "question": "is your item powered in some other way?",
+            "unsortedItems": [],
+            "yesItems": [
+                {
+                    "name": "car",
+                    "description": "gas car go brr"
+                }
+            ],
+            "noItems": [
+                {
+                    "name": "stapler",
+                    "description": "staples are used to attach papers"
+                },
+                {
+                    "name": "pen",
+                    "description": "use it to write"
+                }
+            ],
+            "yesNode": null,
+            "noNode": null
+        }
+    }
+}

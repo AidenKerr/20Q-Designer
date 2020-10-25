@@ -117,7 +117,7 @@ public class Node {
         return parentNode;
     }
 
-    public List<Item> getYesItems() {
+    public LinkedList<Item> getYesItems() {
         return yesItems;
     }
 
