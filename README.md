@@ -19,4 +19,4 @@ possible.
 * As a user, I want to be able to be able to navigate through the question tree.
 * As a user, I want to be able to optionally set descriptions for items.
 * As a user, I want to be able to save my question tree, including all sorted and unsorted items.
-* As a user, I want to be able to load a question tree.
+* As a user, I want to be able to load a question tree from file and continue editing.
