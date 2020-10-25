@@ -25,7 +25,7 @@ public class Node {
     private LinkedList<Item> unsortedItems;
     private LinkedList<Item> yesItems;
     private LinkedList<Item> noItems;
-    private Node parentNode;
+    private final Node parentNode;
     private Node yesNode;
     private Node noNode;
 
@@ -39,7 +39,6 @@ public class Node {
         noItems = new LinkedList<>();
         parentNode = parent;
     }
-
 
     // MODIFIES: this
     // EFFECTS: if noNode exists, add first item in unsorted list directly to noNode.
