@@ -40,12 +40,12 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderGeneralNode() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyNode.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralNode.json");
         try {
             Node root = reader.read();
 
             // check root
-            assertEquals("is your item alive?", root.getQuestion());
+            assertEquals("Is your item alive?", root.getQuestion());
             assertEquals(1, root.getUnsortedItems().size());
             Item virus = root.getUnsortedItems().get(0);
             checkItem("virus", "idk if this is alive or not so i wont sort it", virus);
@@ -63,7 +63,7 @@ public class JsonReaderTest extends JsonTest {
             LinkedList<Item> rootYesUnsortedItems = rootYesNode.getUnsortedItems();
             assertEquals(2, rootYesUnsortedItems.size());
             Item bear = rootYesUnsortedItems.get(0);
-            Item duck = rootYesUnsortedItems.get(0);
+            Item duck = rootYesUnsortedItems.get(1);
             checkItem("bear", "No Description Provided", bear);
             checkItem("duck", "quack", duck);
             LinkedList<Item> rootYesYesItems = rootYesNode.getYesItems();
@@ -104,7 +104,7 @@ public class JsonReaderTest extends JsonTest {
             LinkedList<Item> rootNoNoNoItems = rootNoNoNode.getNoItems();
             assertEquals(2, rootNoNoNode.getNoItems().size());
             checkItem("stapler","staples are used to attach papers", rootNoNoNoItems.get(0));
-            checkItem("pen","use it to write", rootNoNoNoItems.get(0));
+            checkItem("pen","use it to write", rootNoNoNoItems.get(1));
             assertNull(rootNoNoNode.getYesNode());
             assertNull(rootNoNoNode.getNoNode());
         } catch (IOException e) {

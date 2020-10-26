@@ -132,4 +132,32 @@ public class Node {
     public void addUnsortedItem(Item item) {
         unsortedItems.add(item);
     }
+
+    // REQUIRES: items are being set during file reading, not while using program normally
+    // MODIFIES: this
+    // EFFECTS: set noItems as given items list
+    public void setNoItems(LinkedList<Item> items) {
+        noItems = items;
+    }
+
+    // REQUIRES: items are being set during file reading, not while using program normally
+    // MODIFIES: this
+    // EFFECTS: set yesItems as given items list
+    public void setYesItems(LinkedList<Item> items) {
+        yesItems = items;
+    }
+
+    // REQUIRES: node is being set during file reading, not while using program normally
+    // MODIFIES: this
+    // EFFECTS: set yesNode to given node
+    public void setYesNode(Node yesNode) {
+        this.yesNode = yesNode;
+    }
+
+    // REQUIRES: node is being set during file reading, not while using program normally
+    // MODIFIES: this
+    // EFFECTS: set noNode to given node
+    public void setNoNode(Node noNode) {
+        this.noNode = noNode;
+    }
 }
