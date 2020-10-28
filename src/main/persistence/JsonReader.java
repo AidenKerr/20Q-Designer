@@ -59,15 +59,14 @@ public class JsonReader {
         Object yesObject = jsonObject.get("yesNode");
         Object noObject = jsonObject.get("noNode");
 
-        // will return a ClassCastException when null - this is the base case
-        try {
+        // yesObject and noObject should be NULL together. Only checking one for code coverage reasons
+        // This is the recursion. In the base case, yesNode and noNode remain as null
+        if (yesObject != JSONObject.NULL) {
             Node yesNode = parseNode((JSONObject) yesObject, node);
             Node noNode = parseNode((JSONObject) noObject, node);
 
             node.setYesNode(yesNode);
             node.setNoNode(noNode);
-        } catch (ClassCastException e) {
-            // base case. yesNode and noNode remain as null
         }
 
         return node;

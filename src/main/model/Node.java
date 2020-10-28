@@ -172,7 +172,8 @@ public class Node implements Writeable {
         jsonObject.put("yesItems", listToJson(yesItems));
         jsonObject.put("noItems", listToJson(noItems));
 
-        if (yesNode != null && noNode != null) {
+        // yesNode and noNode will always be null together. Only checking one for code coverage reasons
+        if (yesNode != null) {
             jsonObject.put("yesNode", yesNode.toJson());
             jsonObject.put("noNode", noNode.toJson());
         } else {
