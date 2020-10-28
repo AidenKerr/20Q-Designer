@@ -1,8 +1,14 @@
 package ui;
 
+import exceptions.IllegalPathException;
+import exceptions.IncorrectParameterException;
 import model.Item;
 import model.Node;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -43,7 +49,13 @@ public class QuestionsApp {
             if (command.equals("q")) {
                 running = false;
             } else {
-                runCommand(command, param);
+                try {
+                    runCommand(command, param);
+                } catch (IncorrectParameterException e) {
+                    System.out.println("Incorrect Parameters");
+                } catch (IOException e) {
+                    System.out.println("Invalid file name");
+                }
             }
         }
     }
@@ -54,14 +66,14 @@ public class QuestionsApp {
         System.out.println("To start, set your yes/no question, create some items and sort them into yes and no");
     }
 
-    private void runCommand(String input, String param) {
+    private void runCommand(String input, String param)
+            throws IncorrectParameterException, IllegalPathException, IOException {
         switch (input) {
             case "help":
                 showCommands();
                 break;
-            case "newItem":
-                Item newItem = new Item(param);
-                currentNode.addUnsortedItem(newItem);
+            case "item":
+                itemOptions(param);
                 break;
             case "sort":
                 sortItems();
@@ -72,12 +84,100 @@ public class QuestionsApp {
             case "setQuestion":
                 currentNode.setQuestion(param);
                 break;
+            case "file":
+                saveLoad(param);
+                break;
+            default:
+                System.out.println("Unknown Command");
+        }
+    }
+
+    private void newItem(String name) {
+        Item newItem = new Item(name);
+        currentNode.addUnsortedItem(newItem);
+    }
+
+    private void itemOptions(String param) throws IncorrectParameterException {
+
+        String[] splitParam = param.split(" ", 2);
+        String command = splitParam[0];
+        if (command.equals("new") && splitParam.length != 2) {
+            throw new IncorrectParameterException();
+        }
+        String commandParam = splitParam.length > 1 ? splitParam[1] : "";
+
+        switch (command) {
+            case "new":
+                newItem(commandParam);
+                break;
             case "describe":
                 setDescriptions();
                 break;
             default:
                 System.out.println("Unknown Command");
         }
+    }
+
+
+    private void saveLoad(String param)
+            throws IncorrectParameterException, IllegalPathException, IOException {
+
+        String[] paramArray = param.split(" ", 2);
+        if (paramArray.length != 2) {
+            throw new IncorrectParameterException();
+        }
+        String command = paramArray[0];
+        String path = paramArray[1];
+
+        if (path.contains("./")) {
+            throw new IllegalPathException();
+        }
+
+        switch (command) {
+            case "save":
+                saveFile(path);
+                break;
+            case "load":
+                readFile(path);
+                break;
+            default:
+                System.out.println("Unknown Command");
+        }
+    }
+
+    private void readFile(String path) throws IOException {
+        System.out.println("WARNING: This will overwrite your current work. Continue?");
+
+        String answer = scan.nextLine();
+
+        if (answer.equals("yes") || answer.equals("y")) {
+            String finalPath = "./data/" + path + ".json";
+            JsonReader reader = new JsonReader(finalPath);
+            root = reader.read();
+            currentNode = root;
+        } else {
+            System.out.println("File loading cancelled");
+        }
+
+    }
+
+    private void saveFile(String path) throws FileNotFoundException, IllegalPathException {
+        if (containsTestFiles(path)) {
+            throw new IllegalPathException();
+        }
+        String finalPath = "./data/" + path + ".json";
+        JsonWriter wr = new JsonWriter(finalPath);
+        wr.open();
+        wr.write(root);
+        wr.close();
+        System.out.println("Saved file in " + finalPath);
+    }
+
+    private boolean containsTestFiles(String path) {
+        return path.equals("testReaderEmptyNode")
+                || path.equals("testReaderGeneralNode")
+                || path.equals("testWriterEmptyNode")
+                || path.equals("testWriterGeneralNode");
     }
 
     private void move() {
@@ -172,9 +272,9 @@ public class QuestionsApp {
         System.out.println("q - quit");
         System.out.println("help - command list");
         System.out.println("setQuestion [question] - change current question");
-        System.out.println("newItem [item name] - create new guessable item");
-        System.out.println("describe - set descriptions for unsorted items");
+        System.out.println("item [describe / new [name]] - describe and create items");
         System.out.println("sort - move items by yes or no");
-        System.out.println("move - navigate through the question tree\n");
+        System.out.println("move - navigate through the question tree");
+        System.out.println("file [save/load] [filename]\n");
     }
 }
