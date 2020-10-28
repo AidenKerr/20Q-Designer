@@ -7,6 +7,8 @@ package model;
  */
 
 
+import org.json.JSONObject;
+
 public class Item {
 
     public static final String NO_DESCRIPTION = "No Description Provided";
@@ -37,5 +39,13 @@ public class Item {
         } else {
             description = desc;
         }
+    }
+
+    // EFFECTS: returns the Item as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("description", description);
+        return json;
     }
 }

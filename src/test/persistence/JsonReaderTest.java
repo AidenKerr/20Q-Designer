@@ -57,6 +57,8 @@ public class JsonReaderTest extends JsonTest {
             Node rootNoNode = root.getNoNode();
             assertNotNull(rootYesNode);
             assertNotNull(rootNoNode);
+            assertEquals(root, rootYesNode.getParentNode());
+            assertEquals(root, rootNoNode.getParentNode());
 
             // yes
             assertEquals("Is your item a human?", rootYesNode.getQuestion());
@@ -81,8 +83,10 @@ public class JsonReaderTest extends JsonTest {
             // check child's child nodes
             Node rootNoYesNode = rootNoNode.getYesNode();
             Node rootNoNoNode = rootNoNode.getNoNode();
-            assertNotNull(rootNoNode);
-            assertNotNull(rootYesNode);
+            assertNotNull(rootNoYesNode);
+            assertNotNull(rootNoNoNode);
+            assertEquals(rootNoNode, rootNoYesNode.getParentNode());
+            assertEquals(rootNoNode, rootNoNoNode.getParentNode());
 
             // yes
             assertEquals("does your item use the internet?", rootNoYesNode.getQuestion());

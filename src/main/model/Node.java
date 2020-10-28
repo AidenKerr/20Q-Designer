@@ -1,7 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.LinkedList;
-import java.util.List;
 
 /*
     A question node in the binary tree
@@ -19,7 +21,7 @@ import java.util.List;
     Some inspiration for the structure of binary trees was taken from
     https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
  */
-public class Node {
+public class Node implements Writeable {
 
     private String question;
     private LinkedList<Item> unsortedItems;
@@ -147,17 +149,47 @@ public class Node {
         yesItems = items;
     }
 
-    // REQUIRES: node is being set during file reading, not while using program normally
+    // REQUIRES: node is being set during file reading/writing, not while using program normally
     // MODIFIES: this
     // EFFECTS: set yesNode to given node
     public void setYesNode(Node yesNode) {
         this.yesNode = yesNode;
     }
 
-    // REQUIRES: node is being set during file reading, not while using program normally
+    // REQUIRES: node is being set during file reading/writing, not while using program normally
     // MODIFIES: this
     // EFFECTS: set noNode to given node
     public void setNoNode(Node noNode) {
         this.noNode = noNode;
+    }
+
+    // EFFECTS: returns the node as a JSON object, including all child nodes
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("question", question);
+        jsonObject.put("unsortedItems", listToJson(unsortedItems));
+        jsonObject.put("yesItems", listToJson(yesItems));
+        jsonObject.put("noItems", listToJson(noItems));
+
+        if (yesNode != null && noNode != null) {
+            jsonObject.put("yesNode", yesNode.toJson());
+            jsonObject.put("noNode", noNode.toJson());
+        } else {
+            jsonObject.put("yesNode", JSONObject.NULL);
+            jsonObject.put("noNode", JSONObject.NULL);
+        }
+
+        return jsonObject;
+    }
+
+    // EFFECTS: returns given Item list as a JSON array
+    private JSONArray listToJson(LinkedList<Item> list) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item item : list) {
+            jsonArray.put(item.toJson());
+        }
+        return  jsonArray;
     }
 }
