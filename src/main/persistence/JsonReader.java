@@ -19,8 +19,12 @@ public class JsonReader {
 
     // MODIFIES: this
     // EFFECTS: sets source path
-    public JsonReader(String path) {
-        source = path;
+    public JsonReader(String path) throws IOException {
+        if (path.contains("./")) {
+            throw new IOException();
+        }
+        String finalPath = "./data/" + path + ".json";
+        source = finalPath;
     }
 
     // REQUIRES: given file is a valid JSON representation of a Node

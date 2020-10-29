@@ -1,7 +1,5 @@
 package ui;
 
-import exceptions.IllegalPathException;
-import exceptions.IncorrectParameterException;
 import model.Item;
 import model.Node;
 import persistence.JsonReader;
@@ -51,10 +49,8 @@ public class QuestionsApp {
             } else {
                 try {
                     runCommand(command, param);
-                } catch (IncorrectParameterException e) {
-                    System.out.println("Incorrect Parameters");
                 } catch (IOException e) {
-                    System.out.println("Invalid file name");
+                    System.out.println("Error. Please try again.");
                 }
             }
         }
@@ -66,8 +62,7 @@ public class QuestionsApp {
         System.out.println("To start, set your yes/no question, create some items and sort them into yes and no");
     }
 
-    private void runCommand(String input, String param)
-            throws IncorrectParameterException, IllegalPathException, IOException {
+    private void runCommand(String input, String param) throws IOException {
         switch (input) {
             case "help":
                 showCommands();
@@ -97,12 +92,13 @@ public class QuestionsApp {
         currentNode.addUnsortedItem(newItem);
     }
 
-    private void itemOptions(String param) throws IncorrectParameterException {
+    private void itemOptions(String param) {
 
         String[] splitParam = param.split(" ", 2);
         String command = splitParam[0];
         if (command.equals("new") && splitParam.length != 2) {
-            throw new IncorrectParameterException();
+            System.out.println("Please enter item name");
+            return;
         }
         String commandParam = splitParam.length > 1 ? splitParam[1] : "";
 
@@ -119,19 +115,15 @@ public class QuestionsApp {
     }
 
 
-    private void saveLoad(String param)
-            throws IncorrectParameterException, IllegalPathException, IOException {
+    private void saveLoad(String param) throws IOException {
 
         String[] paramArray = param.split(" ", 2);
         if (paramArray.length != 2) {
-            throw new IncorrectParameterException();
+            System.out.println("Please include file name");
+            return;
         }
         String command = paramArray[0];
         String path = paramArray[1];
-
-        if (path.contains("./")) {
-            throw new IllegalPathException();
-        }
 
         switch (command) {
             case "save":
@@ -145,14 +137,13 @@ public class QuestionsApp {
         }
     }
 
-    private void readFile(String path) throws IOException {
+    private void readFile(String partialPath) throws IOException {
         System.out.println("WARNING: This will overwrite your current work. Continue?");
 
         String answer = scan.nextLine();
 
         if (answer.equals("yes") || answer.equals("y")) {
-            String finalPath = "./data/" + path + ".json";
-            JsonReader reader = new JsonReader(finalPath);
+            JsonReader reader = new JsonReader(partialPath);
             root = reader.read();
             currentNode = root;
         } else {
@@ -161,16 +152,15 @@ public class QuestionsApp {
 
     }
 
-    private void saveFile(String path) throws FileNotFoundException, IllegalPathException {
+    private void saveFile(String path) throws IOException {
         if (containsTestFiles(path)) {
-            throw new IllegalPathException();
+            throw new IOException();
         }
-        String finalPath = "./data/" + path + ".json";
-        JsonWriter wr = new JsonWriter(finalPath);
+        JsonWriter wr = new JsonWriter(path);
         wr.open();
         wr.write(root);
         wr.close();
-        System.out.println("Saved file in " + finalPath);
+        System.out.println("Saved file as " + path);
     }
 
     private boolean containsTestFiles(String path) {

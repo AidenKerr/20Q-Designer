@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonReaderTest extends JsonTest {
     @Test
     public void testReaderNoFile() {
-        JsonReader reader = new JsonReader("./data/fakeFile.json");
         try {
+            JsonReader reader = new JsonReader("fakeFile");
             Node root = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
@@ -24,8 +24,8 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderEmptyNode() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyNode.json");
         try {
+            JsonReader reader = new JsonReader("testReaderEmptyNode");
             Node root = reader.read();
             assertEquals("", root.getQuestion());
             assertEquals(0, root.getUnsortedItems().size());
@@ -40,8 +40,8 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderGeneralNode() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralNode.json");
         try {
+            JsonReader reader = new JsonReader("testReaderGeneralNode");
             Node root = reader.read();
 
             // check root

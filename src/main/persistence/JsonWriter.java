@@ -16,8 +16,12 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: sets file destination path
-    public JsonWriter(String path) {
-        destination = path;
+    public JsonWriter(String path) throws IOException {
+        if (path.contains("./")) {
+            throw new IOException();
+        }
+        String finalPath = "./data/" + path + ".json";
+        destination = finalPath;
     }
 
     // MODIFIES: this

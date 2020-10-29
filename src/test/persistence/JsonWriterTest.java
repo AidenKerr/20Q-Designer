@@ -27,12 +27,12 @@ public class JsonWriterTest extends JsonTest {
     void WriteEmptyNodeTest() {
         try {
             Node node = new Node(new LinkedList<>(), null);
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyNode.json");
+            JsonWriter writer = new JsonWriter("testWriterEmptyNode");
             writer.open();
             writer.write(node);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyNode.json");
+            JsonReader reader = new JsonReader("testWriterEmptyNode");
             node = reader.read();
             assertEquals("", node.getQuestion());
             assertEquals(0, node.getUnsortedItems().size());
@@ -114,12 +114,12 @@ public class JsonWriterTest extends JsonTest {
 
 
 
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralNode.json");
+            JsonWriter writer = new JsonWriter("testWriterGeneralNode");
             writer.open();
             writer.write(node);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralNode.json");
+            JsonReader reader = new JsonReader("testWriterGeneralNode");
             node = reader.read();
 
             // check root
