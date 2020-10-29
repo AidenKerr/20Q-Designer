@@ -23,6 +23,16 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
+    public void testReaderBadPath() {
+        try {
+            JsonReader reader = new JsonReader("./whatever");
+            fail("IOException expected");
+        } catch (IOException e) {
+            // pass
+        }
+    }
+
+    @Test
     public void testReaderEmptyNode() {
         try {
             JsonReader reader = new JsonReader("testReaderEmptyNode");
