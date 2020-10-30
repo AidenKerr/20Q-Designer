@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 // code inspired by the JsonSerializationDemo example project
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // This class is used for saving question node trees as a JSON object
 public class JsonWriter {
     private static final int TAB = 4;
@@ -20,8 +21,7 @@ public class JsonWriter {
         if (path.contains("./")) {
             throw new IOException();
         }
-        String finalPath = "./data/" + path + ".json";
-        destination = finalPath;
+        destination = "./data/" + path + ".json";
     }
 
     // MODIFIES: this

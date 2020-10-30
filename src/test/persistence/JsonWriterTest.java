@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 // code inspired by the JsonSerializationDemo example project
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonWriterTest extends JsonTest {
     @Test
     void WriterInvalidFile() {

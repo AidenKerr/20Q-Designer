@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.stream.Stream;
 
 // code inspired by the JsonSerializationDemo example project
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // This class is used to read JSON files to create question node trees
 public class JsonReader {
     private final String source;
@@ -23,8 +24,7 @@ public class JsonReader {
         if (path.contains("./")) {
             throw new IOException();
         }
-        String finalPath = "./data/" + path + ".json";
-        source = finalPath;
+        source = "./data/" + path + ".json";
     }
 
     // REQUIRES: given file is a valid JSON representation of a Node
