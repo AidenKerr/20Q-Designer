@@ -48,4 +48,10 @@ public class Item {
         json.put("description", description);
         return json;
     }
+
+    // EFFECTS: returns name of item
+    @Override
+    public String toString() {
+        return name;
+    }
 }

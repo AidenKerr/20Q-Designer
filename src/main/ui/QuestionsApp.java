@@ -163,10 +163,10 @@ public class QuestionsApp {
     }
 
     private boolean containsTestFiles(String path) {
-        return path.equals("testReaderEmptyNode")
-                || path.equals("testReaderGeneralNode")
-                || path.equals("testWriterEmptyNode")
-                || path.equals("testWriterGeneralNode");
+        return path.equalsIgnoreCase("testReaderEmptyNode")
+                || path.equalsIgnoreCase("testReaderGeneralNode")
+                || path.equalsIgnoreCase("testWriterEmptyNode")
+                || path.equalsIgnoreCase("testWriterGeneralNode");
     }
 
     private void move() {
