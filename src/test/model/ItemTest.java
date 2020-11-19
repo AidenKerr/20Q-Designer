@@ -71,4 +71,9 @@ class ItemTest {
         item.setDescription("   ");
         assertEquals(expected, item.getDescription());
     }
+
+    @Test
+    void toStringTest() {
+        assertEquals("Koala", item.toString());
+    }
 }
