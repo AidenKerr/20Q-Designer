@@ -20,3 +20,10 @@ possible.
 * As a user, I want to be able to optionally set descriptions for items.
 * As a user, I want to be able to save my question tree, including all sorted and unsorted items.
 * As a user, I want to be able to load a question tree from file and continue editing.
+* As a user, I want to be able to play a game where I can think of an item, answer yes/no question, and have my item
+guessed for me.
+
+### Phase 4: Task 2
+
+I decided to implement a type hierarchy. I have an abstract GUI class that handles general GUI functionality, and I have
+EditorGUI, GameGUI, and SelectionGUI that all extend GUI.

@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
+
+// EditorGUI is the GUI for the game editor.
 // references:
 // SimpleDrawingPlayer example program
 // and
@@ -108,6 +110,7 @@ public class EditorGUI extends GUI {
     // EFFECTS: creates action listener that loads a file from the filesystem and shows marning messages when needed.
     private void addFileLoadButtonAction() {
         fileLoadButton.addActionListener(e -> {
+            playSound();
             String path = fileField.getText();
             try {
                 JLabel warningMessage = new JLabel("This will overwrite your current work. Continue?");
@@ -135,6 +138,7 @@ public class EditorGUI extends GUI {
     // EFFECTS: creates action listener to save a file and show warning messages when appropriate
     private void addFileSaveButtonAction() {
         fileSaveButton.addActionListener(e -> {
+            playSound();
             String path = fileField.getText();
             if (containsTestFiles(path)) {
                 showErrorMessage("Please choose another file name.", "File Save Error", JOptionPane.WARNING_MESSAGE);
@@ -191,6 +195,7 @@ public class EditorGUI extends GUI {
     // EFFECTS: creates action listener that sets the first item's description to the description field text.
     private void setDescriptionButtonAction() {
         descriptionButton.addActionListener(e -> {
+            playSound();
             LinkedList<Item> items = currentNode.getUnsortedItems();
             if (items.size() > 0) {
                 Item item = items.get(0);
@@ -220,6 +225,7 @@ public class EditorGUI extends GUI {
     // then adds the item, resets the item text field, and resets the selected index.
     private void addItemButtonAction() {
         newItemButton.addActionListener(e -> {
+            playSound();
             String name = newItemField.getText();
             Item newItem = new Item(name);
             addItem(newItem);
@@ -249,6 +255,7 @@ public class EditorGUI extends GUI {
     // EFFECTS: sets the functionality of the question button. When pushed, the question is set to the text in the field
     private void addQuestionButtonAction() {
         questionButton.addActionListener(e -> {
+            playSound();
             String newText = questionField.getText();
             currentNode.setQuestion(newText);
         });
@@ -269,10 +276,22 @@ public class EditorGUI extends GUI {
     // MODIFIES: this
     // EFFECTS: sets the functionality of the move buttons
     private void addMoveButtonAction() {
-        moveYes.addActionListener(e -> moveToChildNode(true));
-        moveNo.addActionListener(e -> moveToChildNode(false));
-        moveParent.addActionListener(e -> moveToParentNode());
-        moveRoot.addActionListener(e -> moveToRoot());
+        moveYes.addActionListener(e -> {
+            moveToChildNode(true);
+            playSound();
+        });
+        moveNo.addActionListener(e -> {
+            moveToChildNode(false);
+            playSound();
+        });
+        moveParent.addActionListener(e -> {
+            moveToParentNode();
+            playSound();
+        });
+        moveRoot.addActionListener(e -> {
+            moveToRoot();
+            playSound();
+        });
     }
 
     // MODIFIES: this

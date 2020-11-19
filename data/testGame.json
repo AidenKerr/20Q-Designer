@@ -1,0 +1,98 @@
+{
+    "yesItems": [],
+    "question": "Is your item alive?",
+    "noNode": {
+        "yesItems": [],
+        "question": "does your item use electricity?",
+        "noNode": {
+            "yesItems": [{
+                "name": "car",
+                "description": "gas car go brr"
+            }],
+            "question": "is your item powered in some other way?",
+            "noNode": null,
+            "unsortedItems": [],
+            "yesNode": null,
+            "noItems": [
+                {
+                    "name": "stapler",
+                    "description": "staples are used to attach papers"
+                },
+                {
+                    "name": "pen",
+                    "description": "use it to write"
+                }
+            ]
+        },
+        "unsortedItems": [],
+        "yesNode": {
+            "yesItems": [],
+            "question": "does your item use the internet?",
+            "noNode": {
+                "yesItems": [{
+                    "name": "hair dryer",
+                    "description": "my hair is kinda wet"
+                }],
+                "question": "is it hot?",
+                "noNode": null,
+                "unsortedItems": [{
+                    "name": "fan",
+                    "description": "to cool my room and also for white noise"
+                }],
+                "yesNode": null,
+                "noItems": []
+            },
+            "unsortedItems": [{
+                "name": "testItem",
+                "description": "No Description Provided"
+            }],
+            "yesNode": {
+                "yesItems": [{
+                    "name": "computer",
+                    "description": "use it to write CPSC 210 projects!"
+                }],
+                "question": "is it plugged in?",
+                "noNode": null,
+                "unsortedItems": [{
+                    "name": "phone",
+                    "description": "No Description Provided"
+                }],
+                "yesNode": null,
+                "noItems": []
+            },
+            "noItems": []
+        },
+        "noItems": []
+    },
+    "unsortedItems": [{
+        "name": "virus",
+        "description": "idk if this is alive or not so i wont sort it"
+    }],
+    "yesNode": {
+        "yesItems": [
+            {
+                "name": "Aiden Kerr",
+                "description": "it's me!"
+            },
+            {
+                "name": "Jesus",
+                "description": "No Description Provided"
+            }
+        ],
+        "question": "Is your item a human?",
+        "noNode": null,
+        "unsortedItems": [
+            {
+                "name": "bear",
+                "description": "No Description Provided"
+            },
+            {
+                "name": "duck",
+                "description": "quack"
+            }
+        ],
+        "yesNode": null,
+        "noItems": []
+    },
+    "noItems": []
+}
