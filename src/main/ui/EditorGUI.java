@@ -19,6 +19,7 @@ public class EditorGUI extends GUI {
     DefaultListModel<Item> itemsListModel;
     private Node root;
     private Node currentNode;
+
     private JLabel questionLabel;
     private JTextField questionField;
     private JButton questionButton;

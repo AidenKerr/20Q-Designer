@@ -6,10 +6,9 @@ package model;
     Users can create items, and optionally set their description
  */
 
-
 import org.json.JSONObject;
 
-public class Item {
+public class Item implements Writeable {
 
     public static final String NO_DESCRIPTION = "No Description Provided";
 
@@ -41,6 +40,7 @@ public class Item {
         }
     }
 
+    @Override
     // EFFECTS: returns the Item as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

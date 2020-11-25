@@ -8,6 +8,7 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.io.File;
 
+// abstract class containing common functionality of GUI
 public abstract class GUI {
     protected static final Font FONT = new Font(null, Font.PLAIN, 50);
     protected static final int INDENT = 100;
@@ -78,7 +79,7 @@ public abstract class GUI {
     // EFFECTS: sets constraints for each form section
     protected abstract void setConstraints();
 
-    // MODIFIES: this, (component, above ?? TODO check this)
+    // MODIFIES: this
     // Effects: sets the constraints of the given component. x is the space between the left side of "component" and
     // the right side of "left". y is the space between the top of "component" and the top of "above"
     protected void setConstraint(Component component, int x, Component left, int y, Component above) {

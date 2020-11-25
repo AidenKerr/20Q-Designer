@@ -56,7 +56,7 @@ public class GameGUI extends GUI {
         addGuessButtonAction();
     }
 
-    // MODIFES: this
+    // MODIFIES: this
     // EFFECTS: sets the corresponding button action
     private void addGuessButtonAction() {
         guessYesButton.addActionListener(e -> {
