@@ -1,6 +1,6 @@
 # 20 Questions Game Editor
 
-<img align="right" alt="20Q game" src="./data/20q.png" width="450px">
+<img align="right" alt="20Q game" src="./data/20q.png">
 
 This application is a *20Q* style game builder.
 This application can be used to build custom games of 20 questions. You can add items, and answer yes
