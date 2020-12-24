@@ -1,14 +1,11 @@
 # 20 Questions Game Editor
 
-## Proposal
+![2Q logo](./data/20q.png)
 
-This application will be a *20 questions* style game builder.
-Users can use this application to build their own games of 20 questions. Users will be able to add items, and answer yes
+This application is a *20Q* style game builder.
+This application can be used to build custom games of 20 questions. You can add items, and answer yes
 and no questions about them to place them on a binary tree. After, another player can think of an item, answer
 the questions, and the program will guess what it is!
-
-This project is of interest to me because I think the game is neat, and I want to build something with a data structure
-like a binary tree.
 
 ### User Stories
 
@@ -22,21 +19,3 @@ possible.
 * As a user, I want to be able to load a question tree from file and continue editing.
 * As a user, I want to be able to play a game where I can think of an item, answer yes/no question, and have my item
 guessed for me.
-
-### Phase 4: Task 2
-
-I decided to implement a type hierarchy. I have an abstract GUI class that handles general GUI functionality, and I have
-EditorGUI, GameGUI, and SelectionGUI that all extend GUI. The abstract methods are createForms, initializeComponents,
-updateGUI, setConstraints, and initializeFields since these all have varying implementation. 
-
-### Phase 4: Task 3
-
-The node class looks awkward with its 3 bi-directional self associations, as well as its 3 item lists. But I am really
-not sure of a better way to do this.
-
-EditorGUI and GameGUI both share associations to List and Node. I think I could have expanded the GUI hierarchy a bit,
-with a subclass of GUI that Editor and Game GUI would extend. This class would have the code that relates to dealing
-with nodes and item lists in the GUI. There are a few methods I would refactor too. Right now there are 3 methods in
-EditorGUI that deal with moving between nodes. A more general method could be made to replace these. Similarly, in
-GameGUI, there's a different function for when the node changes to a subnode vs when it jumps to a node during the
-backtracking process. I could see if there's a way to simplify this with a more generic method.
